@@ -75,27 +75,34 @@
 	mov	ax, Rows
 	mov	bx, minrow
 	mul	bx; displacement 1 -> ax;--------------------
-	sub	ax, Rows
+	mov	bx, 2
+	mul	bx
 	mov	di, ax
+	dec	di
+	dec 	di
 ;displacement 2
 	xor	ax, ax
 	mov	ax, Rows
 	mov	bx, maxrow
 	mul	bx; displacement 2-> ax;--------------------
-	sub	ax, Rows
+	mov	bx, 2
+	mul	bx
 	mov	si, ax
+	dec	si
+	dec	si
 
-	mov	cx, Rows
+	mov	cx, Colomns
 @m3:
-	dec	cx
-	mov	ax, [matrix+di]
-	mov	bx, [matrix+si]
-	mov	[matrix+di], bx
-	mov	[matrix+si], ax
-	inc	di
-	inc	si
+	mov	al, byte ptr [matrix+di]
+	mov	bl, byte ptr [matrix+si]
+	mov	byte ptr [matrix+di], bl
+	mov	byte ptr [matrix+si], al
+	dec	di
+	dec	di
+	dec	si
+	dec	si
 	cmp	cx, 0
-	jne @m3
+	loop @m3
 
 ;output
 	xor	ax, ax
